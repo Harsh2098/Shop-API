@@ -1,6 +1,7 @@
 {
     "env": {
         "MONGO_ATLAS_PASSWORD": "admin",
-        "PORT": 3000,
+        "JWT_KEY": "secret_shop",
+        "PORT": 3000
     }
 }
