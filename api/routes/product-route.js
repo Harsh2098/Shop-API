@@ -6,11 +6,22 @@ const Product = require('../models/product')
 
 router.get('/', (req, res, next) => {
     Product.find()
+    .select('name price _id')
     .exec()
     .then(products => {
-        console.log(products);
+        const result = {
+            count: products.length,
+            products: products.map(product => {
+                return {
+                    name: product.name,
+                    url: "https://localhost:3000/products/" + product._id
+                };
+            })
+        }
+
+        console.log(result);
         if(products && products.length > 0)
-            res.status(200).json({products});
+            res.status(200).json({result});
         else
             res.status(404).json({message: "No products found"});
     })
@@ -38,6 +49,9 @@ router.post('/', (req, res, next) => {
     })
     .catch(err => {
         console.log(err);
+        res.status(400).json({
+            message: "Incorrect or missing product details."
+        });
     });
 });
 

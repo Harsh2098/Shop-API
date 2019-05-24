@@ -4,7 +4,8 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const productsRoute = require('./api/routes/product-route')
+const productsRoute = require('./api/routes/product-route');
+const userRoute = require('./api/routes/user-route');
 
 mongoose.connect(
     'mongodb+srv://admin:' + process.env.MONGO_ATLAS_PASSWORD + '@rest-shop-6hkxp.mongodb.net/test?retryWrites=true',
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/products', productsRoute);
+app.use('/user', userRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
